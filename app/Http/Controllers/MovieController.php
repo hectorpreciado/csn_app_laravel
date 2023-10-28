@@ -38,15 +38,16 @@ class MovieController extends Controller
         return $movies ->delete();
     }
 
-    public function put(Request $request)
+    public function update(Request $request, $id)
     {
-        $datos =[
-            'title'=>$_POST['title'],
-            "synopsis"=>$_POST['synopsis'],
-            "year"=>$_POST['year'],
-            "cover"=>$_POST['cover']
-        ];
-        $movies=Movie::create($datos);
-        return $movies;
+
+        Movie::find($id)->update([
+            'title'=>$request->title,
+            "synopsis"=>$request->synopsis,
+            "year"=>$request->year,
+            "cover"=>$request->cover
+        ]);
+
+        return response()->json(['success'=>'Movie Updated Successfully!']);
     }
 }

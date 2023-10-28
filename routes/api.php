@@ -23,4 +23,4 @@ Route::get('/movies', [MovieController::class,'index']);
 Route::get('/movies/{id}', [MovieController::class,'especific']);
 Route::post('/movies', [MovieController::class,'add']);
 Route::delete('/movies/{id}',[MovieController::class,'delete']);
-Route::put('/movies',[MovieController::class,'put']);
+Route::put('/movies/{id}',[MovieController::class,'update'])->title('movies.update');
