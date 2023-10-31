@@ -9,8 +9,8 @@ class MovieController extends Controller
 {
     public function index()
     {
-        $movies=Movie::all();
-        return $movies;
+        $movies = Movie::all();
+        return view('movies',compact('movies'));
     }
 
     public function especific($id)
@@ -34,20 +34,30 @@ class MovieController extends Controller
     public function delete($id)
     {
         $movies = Movie::find($id);
-        $movies-> where($id);
-        return $movies ->delete();
+        $result = $movies->delete();
+        if ($result)
+        {
+            return ["result"=>"Eliminado con éxito"];
+        }
+        else {
+            return ["result"=>"No se logro eliminar"];
+        }
     }
 
-    public function update(Request $request, $id)
+   public function update(Request $req)
+   {
+    $movies = Movie::find($req->id);
+    $movies -> title = $req->title;
+    $movies -> synopsis = $req->synopsis;
+    $movies -> year = $req->year;
+    $movies -> cover = $req->cover;
+    $result = $movies->save();
+    if($result)
     {
-
-        Movie::find($id)->update([
-            'title'=>$request->title,
-            "synopsis"=>$request->synopsis,
-            "year"=>$request->year,
-            "cover"=>$request->cover
-        ]);
-
-        return response()->json(['success'=>'Movie Updated Successfully!']);
+        return ["result"=>"Actualizado"];
     }
+    else {
+        return ["result"=>"No se completo la operación"];
+    }
+   }
 }
