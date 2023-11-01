@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('movies');
-});
+Route::get('/',[MovieController::class, 'index']) ->name('movie.lista');
+Route::get('/{id}', [MovieController::class,'especific']) ->name('movie.especifico');
+Route::post('/', [MovieController::class,'add']) ->name('movie.add');
+Route::delete('delete/{id}',[MovieController::class,'delete']) ->name('movie.eliminar');
+Route::put('update',[MovieController::class,'update']) ->name('movie.actualizar');
+
