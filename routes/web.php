@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[MovieController::class, 'index']) ->name('movie.lista');
-Route::get('/{id}', [MovieController::class,'especific']) ->name('movie.especifico');
-Route::post('/', [MovieController::class,'add']) ->name('movie.add');
-Route::delete('delete/{id}',[MovieController::class,'delete']) ->name('movie.eliminar');
-Route::put('update',[MovieController::class,'update']) ->name('movie.actualizar');
+Route::get('/add', [MovieController::class,'create'])->name('movie.create');
+Route::post('/store', [MovieController::class, 'store'])->name('movie.store');
+Route::get('/update/{id}', [MovieController::class,'actualizar'])->name('movie.actualizar');
+Route::put('/actualizar/{id}',[MovieController::class, 'update'])->name('movie.update');
+Route::delete('/delete/{id}',[MovieController::class,'del']) ->name('movie.delete');
+Route::get('/show/{id}', [MovieController::class, 'show'])->name('movie.show');
 

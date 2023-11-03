@@ -19,45 +19,53 @@ class MovieController extends Controller
         return $movies;
     }
 
-    public function add(Request $request)
+    public function store(Request $request)
     {
-        $datos =[
-            'title'=>$_POST['title'],
-            "synopsis"=>$_POST['synopsis'],
-            "year"=>$_POST['year'],
-            "cover"=>$_POST['cover']
-        ];
-        $movies=Movie::create($datos);
-        return $movies;
+        $movies = new Movie();
+        $movies ->title=$request->post('title');
+        $movies ->synopsis=$request->post('synopsis');
+        $movies ->year=$request->post('year');
+        $movies ->cover=$request->post('cover');
+        $movies->save();
+
+        return redirect()->route('movie.lista')->with("success", "Agregado con éxito");
     }
 
-    public function delete($id)
+    public function create()
+    {
+        return view('add');
+    }
+
+    public function actualizar($id)
     {
         $movies = Movie::find($id);
-        $result = $movies->delete();
-        if ($result)
-        {
-            return ["result"=>"Eliminado con éxito"];
-        }
-        else {
-            return ["result"=>"No se logro eliminar"];
-        }
+
+        return view('update', compact('movies'));
     }
 
-   public function update(Request $req)
-   {
-    $movies = Movie::find($req->id);
-    $movies -> title = $req->title;
-    $movies -> synopsis = $req->synopsis;
-    $movies -> year = $req->year;
-    $movies -> cover = $req->cover;
-    $result = $movies->save();
-    if($result)
+    public function del($id)
     {
-        return ["result"=>"Actualizado"];
+        $movies= Movie::find($id);
+        $movies->delete();
+        return redirect()->route("movie.lista")->with("success","Eliminado con éxito");
     }
-    else {
-        return ["result"=>"No se completo la operación"];
+
+    public function show($id)
+    {
+        $movies = Movie::find($id);
+        return view('eliminar', compact('movies'));
     }
+
+   public function update(Request $request, $id)
+   {
+    $movies = Movie::find($id);
+    $movies ->title=$request->post('title');
+    $movies ->synopsis=$request->post('synopsis');
+    $movies ->year=$request->post('year');
+    $movies ->cover=$request->post('cover');
+    $movies->save();
+
+    return redirect()->route('movie.lista')->with("success", "Agregado con éxito");
+
    }
 }

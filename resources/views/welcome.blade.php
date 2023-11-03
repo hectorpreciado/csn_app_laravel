@@ -15,6 +15,7 @@
                 <h2>Catálogo de películas</h2>
             </div>
             <div class="container">
+                <a href="{{ route("movie.create") }}" class="btn btn-primary">Agregar Película</a>
                 <div class="row">
                     <div class="col-sm-12">
                     <div class="table table-responsive">
@@ -33,8 +34,16 @@
                                     <td>{{$pelicula -> synopsis}}</td>
                                     <td>{{$pelicula -> year}}</td>
                                     <td>{{$pelicula -> cover}}</td>
-                                    <td><button class="btn btn-warning">Editar</button></td>
-                                    <td><button class="btn btn-danger">Eliminar</button></td>
+                                    <td>
+                                        <form action="{{route("movie.actualizar", $pelicula-> id)}}" method="GET">
+                                            <button class="btn btn-warning btn-sn">Editar</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{route("movie.show", $pelicula-> id)}}" method="GET">
+                                            <button class="btn btn-danger btn-sn">Eliminar</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
