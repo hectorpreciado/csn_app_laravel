@@ -14,7 +14,7 @@
             <div class="title">
                 <h2>Catálogo de películas</h2>
             </div>
-            <div class="container">
+            <header>
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                     <div class="container-fluid">
                       <a class="navbar-brand" href="#">Navbar</a>
@@ -51,7 +51,7 @@
                       </div>
                     </div>
                   </nav>
-            </div>
+            </header>
             <div class="container">
                 <a href="{{ route("movie.create") }}" class="btn btn-primary">Agregar Película</a>
                 <div class="row">
